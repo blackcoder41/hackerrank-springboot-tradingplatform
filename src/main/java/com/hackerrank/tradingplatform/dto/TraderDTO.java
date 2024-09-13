@@ -3,6 +3,7 @@ package com.hackerrank.tradingplatform.dto;
 import com.hackerrank.tradingplatform.model.Trader;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 
 public class TraderDTO {
     private final Long id;
@@ -18,8 +19,11 @@ public class TraderDTO {
         this.name = trader.getName();
         this.email = trader.getEmail();
         this.balance = trader.getBalance();
-        this.createdAt = trader.getCreatedAt();
-        this.updatedAt = trader.getUpdatedAt();
+        this.createdAt = trader.getCreatedAt() == null ?
+        	Timestamp.from(Instant.now()) : trader.getCreatedAt();
+        this.updatedAt = trader.getUpdatedAt() == null ?
+        	Timestamp.from(Instant.now()) : trader.getUpdatedAt();
+      
     }
 
     public Long getId() {

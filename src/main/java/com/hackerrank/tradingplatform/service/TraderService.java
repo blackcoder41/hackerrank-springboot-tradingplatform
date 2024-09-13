@@ -34,7 +34,8 @@ public class TraderService {
     }
 
     public List<Trader> getAllTraders() {
-        return traderRepository.findAll();
+        List<Trader> allByOrderByIdAsc = traderRepository.findAllByOrderByIdAsc();
+		return allByOrderByIdAsc;
     }
 
     public void updateTrader(UpdateTraderDTO trader) {
