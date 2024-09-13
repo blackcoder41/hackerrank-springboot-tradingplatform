@@ -2,6 +2,7 @@ package com.hackerrank.tradingplatform.service;
 
 import com.hackerrank.tradingplatform.dto.AddMoneyTraderDTO;
 import com.hackerrank.tradingplatform.dto.UpdateTraderDTO;
+import com.hackerrank.tradingplatform.exception.UserAlreadyExitException;
 import com.hackerrank.tradingplatform.model.Trader;
 import com.hackerrank.tradingplatform.repository.TraderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,10 @@ public class TraderService {
     private TraderRepository traderRepository;
 
     public void registerTrader(Trader trader) {
+    	traderRepository.findByEmail(trader.getEmail())
+    	.ifPresent(__ -> {
+    		throw new UserAlreadyExitException();
+    	});
         traderRepository.save(trader);
     }
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -23,8 +24,9 @@ public class TraderController {
     //register
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerTrader(@RequestBody @Valid Trader trader) {
-        traderService.registerTrader(trader);
+    public void registerTrader(@RequestBody @Valid Trader trader, HttpServletResponse response) {
+        response.setStatus(HttpServletResponse.SC_CREATED);
+    	traderService.registerTrader(trader);
     }
 
     //get by email
