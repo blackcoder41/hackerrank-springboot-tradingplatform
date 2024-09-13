@@ -38,15 +38,16 @@ public class TraderService {
     }
 
     public void updateTrader(UpdateTraderDTO trader) {
-        Trader existingTrader = traderRepository.findByEmail(trader.getEmail()).get();
+        Trader existingTrader = traderRepository.findByEmail(trader.getEmail())
+        		.orElseThrow(() -> new EmailNotFoundException());
+        existingTrader.setName(trader.getName());
         traderRepository.save(existingTrader);
     }
 
     public void addMoney(AddMoneyTraderDTO trader) {
-        Trader existingTrader = traderRepository.findByEmail(trader.getEmail()).get();
-
-        existingTrader.setBalance(trader.getAmount());
-
+        Trader existingTrader = traderRepository.findByEmail(trader.getEmail())
+        		.orElseThrow(() -> new EmailNotFoundException());
+        existingTrader.setBalance(existingTrader.getBalance() + trader.getAmount());
         traderRepository.save(existingTrader);
     }
 }
