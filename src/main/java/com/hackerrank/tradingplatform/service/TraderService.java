@@ -2,6 +2,7 @@ package com.hackerrank.tradingplatform.service;
 
 import com.hackerrank.tradingplatform.dto.AddMoneyTraderDTO;
 import com.hackerrank.tradingplatform.dto.UpdateTraderDTO;
+import com.hackerrank.tradingplatform.exception.EmailNotFoundException;
 import com.hackerrank.tradingplatform.exception.UserAlreadyExitException;
 import com.hackerrank.tradingplatform.model.Trader;
 import com.hackerrank.tradingplatform.repository.TraderRepository;
@@ -28,7 +29,8 @@ public class TraderService {
     }
 
     public Trader getTraderByEmail(String email) {
-        return traderRepository.findByEmail(email).orElse(new Trader());
+        return traderRepository.findByEmail(email)
+        		.orElseThrow(() -> new EmailNotFoundException());
     }
 
     public List<Trader> getAllTraders() {

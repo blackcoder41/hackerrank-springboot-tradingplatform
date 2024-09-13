@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.hackerrank.tradingplatform.exception.EmailNotFoundException;
 import com.hackerrank.tradingplatform.exception.UserAlreadyExitException;
 
 @ControllerAdvice
@@ -12,6 +13,12 @@ public class ErrorHandler {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(UserAlreadyExitException.class)
 	public void userAlreadyExist() {
+		
+	}
+	
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ExceptionHandler(EmailNotFoundException.class)
+	public void emailNotFound() {
 		
 	}
 }
